@@ -36,12 +36,12 @@ export default function Welcome() {
         className="relative z-10 flex items-center justify-end gap-3 px-8 py-5"
         style={fadeIn(0)}
       >
-        <button
-          className="px-5 py-2 text-sm font-medium text-[#1a6a8a] rounded-full border border-[#7ec8e3] bg-white/70 hover:bg-[#e0f4fc] hover:border-[#3aa5cc] hover:shadow-md active:scale-95 transition-all duration-200 backdrop-blur-sm"
-          // onClick={()=>{navigate("/about")}}
-        >
-          About
-        </button>
+        {/* <button */}
+        {/*   className="px-5 py-2 text-sm font-medium text-[#1a6a8a] rounded-full border border-[#7ec8e3] bg-white/70 hover:bg-[#e0f4fc] hover:border-[#3aa5cc] hover:shadow-md active:scale-95 transition-all duration-200 backdrop-blur-sm" */}
+        {/*   // onClick={()=>{navigate("/about")}} */}
+        {/* > */}
+        {/*   About */}
+        {/* </button> */}
         <button
           className="px-5 py-2 text-sm font-medium text-white rounded-full bg-[#3aa5cc] hover:bg-[#2a8fb5] hover:shadow-lg active:scale-95 transition-all duration-200 shadow-md"
           onClick={() => {

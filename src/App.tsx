@@ -5,6 +5,7 @@ import RecoverPassword from "./pages/auth/RecoverPassword";
 import Register from "./pages/auth/Register";
 import Welcome from "./pages/Welcome";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/AuthContext";
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <AuthProvider>
+                <Login />
+              </AuthProvider>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/recover" element={<RecoverPassword />} />
           <Route

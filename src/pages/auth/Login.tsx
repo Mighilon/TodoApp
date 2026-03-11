@@ -5,18 +5,48 @@ import {
   PrimaryButton,
 } from "./../../components/AuthCard.tsx";
 import { useNavigate } from "react-router-dom";
+import { authApi } from "../../services/api";
+import { useAuth } from "../../components/AuthContext";
 
 export default function Login() {
   const [visible, setVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 200);
     return () => clearTimeout(t);
   }, []);
+
+  const handleLogin = async () => {
+    if (!username || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    console.log("handleLogin");
+
+    setLoading(true);
+    setError("");
+    console.log("handleLogin-2");
+
+    try {
+      console.log("wait for api");
+      const user = await authApi.login({ username, password });
+      console.log("received");
+      setUser(user);
+      navigate("/board");
+    } catch (err: any) {
+      // setError(err.message || "Login failed. Check your credentials.");
+      setError("Login failed. Check your credentials.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AuthCard
@@ -25,7 +55,7 @@ export default function Login() {
     >
       <InputField
         label="Username"
-        placeholder="your_username"
+        placeholder="Username"
         value={username}
         onChange={setUsername}
         delay={100}
@@ -41,7 +71,10 @@ export default function Login() {
         visible={visible}
       />
 
-      {/* Forgot password */}
+      {error && (
+        <p className="mb-4 text-xs text-red-400 text-center">{error}</p>
+      )}
+
       <div
         className="flex justify-end mb-6 -mt-2"
         style={{
@@ -51,21 +84,17 @@ export default function Login() {
       >
         <button
           className="text-xs text-[#3aa5cc] hover:text-[#2a8fb5] hover:underline transition-colors duration-150"
-          onClick={() => {
-            navigate("/recover");
-          }}
+          onClick={() => navigate("/recover")}
         >
           Forgot password?
         </button>
       </div>
 
       <PrimaryButton
-        label="Login"
+        label={loading ? "Logging in…" : "Login"}
         delay={350}
         visible={visible}
-        onClick={() => {
-          navigate("/board");
-        }}
+        onClick={handleLogin}
       />
 
       <div
@@ -78,9 +107,7 @@ export default function Login() {
         Don't have an account?{" "}
         <button
           className="text-[#3aa5cc] font-semibold hover:underline"
-          onClick={() => {
-            navigate("/register");
-          }}
+          onClick={() => navigate("/register")}
         >
           Register
         </button>
