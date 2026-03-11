@@ -1,5 +1,6 @@
 import { CloudCheck, LogOut, SquarePlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 type ActionBarProps = {
   onAddCard: () => void;
@@ -7,6 +8,7 @@ type ActionBarProps = {
 };
 
 export default function ActionBar({ onAddCard, onSave }: ActionBarProps) {
+  const { logout } = useAuth();
   const navigate = useNavigate();
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 mb-4 bg-white p-3 rounded-md flex gap-3 border-3 border-[#EDF4FC]">
@@ -27,6 +29,7 @@ export default function ActionBar({ onAddCard, onSave }: ActionBarProps) {
       </button>
       <button
         onClick={() => {
+          logout();
           navigate("/");
         }}
         className="flex gap-2 items-center px-2.5 h-9 border-0 lg:border rounded-md border-gray-300 hover:bg-gray-50"

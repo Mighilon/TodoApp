@@ -6,6 +6,7 @@ import Register from "./pages/auth/Register";
 import Welcome from "./pages/Welcome";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -26,9 +27,13 @@ function App() {
           <Route
             path="/board"
             element={
-              <BoardProvider>
-                <Board></Board>
-              </BoardProvider>
+              <AuthProvider>
+                <ProtectedRoute>
+                  <BoardProvider>
+                    <Board></Board>
+                  </BoardProvider>
+                </ProtectedRoute>
+              </AuthProvider>
             }
           />
           {/* <Route path="/about" element={<About />} /> */}
