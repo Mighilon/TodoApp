@@ -23,6 +23,8 @@ html {
   /* background: url("./assets/colored_sky_pastel.jpg") no-repeat top center fixed; */
   background-size: cover;
   background-attachment: fixed;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 body {
   margin: 0;
